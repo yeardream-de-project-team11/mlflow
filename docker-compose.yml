@@ -1,0 +1,10 @@
+version:  '3'
+services:
+  app:
+      build: .
+      restart: unless-stopped
+      environment:
+        - BACKEND_URI=sqlite:///mlflow.db
+        - ARTIFACT_ROOT=s3://11team-hm/mlflow/
+      ports:
+        - 9005:5000
