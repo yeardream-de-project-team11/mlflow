@@ -1,4 +1,3 @@
-
 tensorflow==2.12
 opencv-python==4.8.1.78
 boto3==1.33.4
