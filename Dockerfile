@@ -7,8 +7,8 @@ COPY . .
 RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV AWS_ACCESS_KEY_ID=access_key
-ENV AWS_SECRET_ACCESS_KEY=secret_key
+ENV AWS_ACCESS_KEY=access_key
+ENV AWS_SECRET_KEY=secret_key
 ENV BACKEND_URI sqlite:///mlflow.db
 ENV ARTIFACT_ROOT s3://bucket_name/mlflow/
 
