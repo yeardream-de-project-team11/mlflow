@@ -54,7 +54,7 @@ jobs:
           cd ~/docker/11team_mlflow
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}" > .env
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}" >> .env
-          docker compose --env-file .env down
-          docker compose --env-file .env build
-          docker compose --env-file .env up -d
+          docker compose down
+          docker compose build
+          docker compose up -d
 

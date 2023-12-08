@@ -6,6 +6,8 @@ services:
       environment:
         - BACKEND_URI=sqlite:///mlflow.db
         - ARTIFACT_ROOT=s3://11team-hm/mlflow/
+      env_file:
+        - .env
       volumes:
         - data:/usr/src/app/myapp
       ports:
