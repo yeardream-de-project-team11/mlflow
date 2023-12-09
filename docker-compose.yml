@@ -3,6 +3,7 @@ services:
   app:
       build: .
       restart: unless-stopped
+      network_mode: services:proxy
       environment:
         - BACKEND_URI=sqlite:///mlflow.db
         - ARTIFACT_ROOT=s3://11team-hm/mlflow/
@@ -10,8 +11,13 @@ services:
         - .env
       volumes:
         - data:/usr/src/app/myapp
+
+  proxy:
+      image: alpine
+      restart: unless-stopped
+      command: ["tail", "-f", "/dev/null"]
       ports:
         - 9005:5000
-
+        
 volumes:
   data:
