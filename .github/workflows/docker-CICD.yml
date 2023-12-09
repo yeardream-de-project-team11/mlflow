@@ -32,7 +32,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: Gibhub Actions - mlflow build
+        author_name: Gibhub Actions - build
         fields: repo,commit,message,author # action,eventName,ref,workflow,job,took 추가할 수 있음
         mention: here
         if_mention: failure,cancelled
@@ -74,7 +74,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: Gibhub Actions - mlflow deploy
+        author_name: Gibhub Actions - deploy
         fields: repo,commit,message,author # action,eventName,ref,workflow,job,took 추가할 수 있음
         mention: here
         if_mention: failure,cancelled
