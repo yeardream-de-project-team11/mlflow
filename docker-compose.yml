@@ -4,6 +4,8 @@ services:
       build: .
       restart: unless-stopped
       network_mode: service:proxy
+      depends_on:
+        - proxy
       environment:
         - BACKEND_URI=sqlite:///mlflow.db
         - ARTIFACT_ROOT=s3://11team-hm/mlflow/
