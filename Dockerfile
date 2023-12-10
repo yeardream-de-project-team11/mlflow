@@ -14,10 +14,15 @@ RUN apt-get update && apt-get install -y \
 
 ENV PYENV_ROOT="$HOME/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
-ENV PYENV_INIT="eval \"$(pyenv init -)\""
+#ENV PYENV_INIT="eval \"$(pyenv init -)\""
 
-RUN python -m pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+RUN /bin/bash -c "source ~/.bashrc && python -m pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt"
+
+#RUN python -m pip install --upgrade pip \
+#    && pip install --no-cache-dir -r requirements.txt
 
 ENV AWS_ACCESS_KEY_ID=access_key
 ENV AWS_SECRET_ACCESS_KEY=secret_key
@@ -28,4 +33,5 @@ WORKDIR ./myapp
 
 EXPOSE 5000
 
-CMD mlflow server --backend-store-uri $BACKEND_URI --default-artifact-root $ARTIFACT_ROOT --host 0.0.0.0
+#CMD mlflow server --backend-store-uri $BACKEND_URI --default-artifact-root $ARTIFACT_ROOT --host 0.0.0.0
+CMD /bin/bash -c "source ~/.bashrc && mlflow server --backend-store-uri $BACKEND_URI --default-artifact-root $ARTIFACT_ROOT --host 0.0.0.0"
