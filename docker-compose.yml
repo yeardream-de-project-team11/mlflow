@@ -23,8 +23,8 @@ services:
       depends_on:
         - mlflow
       environment:
-        - MLFLOW_TRACKING_URI:http://mlflow:5000
-        - MODEL_RUN_ID:77fda43e39a344269a64c429c268d068
+        - MLFLOW_TRACKING_URI=http://mlflow:5000
+        - MODEL_RUN_ID=77fda43e39a344269a64c429c268d068
       ports:
         - 9006:5000
         
