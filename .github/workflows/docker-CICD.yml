@@ -1,4 +1,4 @@
-name: Docker Image CICD
+name: Docker Image CICDC
 
 on:
   push:
@@ -17,29 +17,19 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build Docker Image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        dockerfile: Dockerfile
-        tags: server:test
-        push: false
+    - name: Build Docker image
+      run: docker build -t server -f Dockerfile .
 
     - name: Run Docker container
-      run: docker run -d -p 5000:5000 server:test
+      run: docker run -d -p 5000:5000 server
 
     - name: Test
       run: |
         sleep 30
         curl http://localhost:5000
 
-    - name: Build Docker serve Image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        dockerfile: Dockerfile_serving
-        tags: serve:test
-        push: false
+    - name: Build Docker serving image
+      run: docker build -t serving -f Dockerfile_serving .
 
     - name: action-slack
       uses: 8398a7/action-slack@v3
