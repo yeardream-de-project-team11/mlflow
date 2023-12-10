@@ -5,16 +5,16 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt-get update && apt-get install -y \
-    curl git-core gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev \
+    make build-essential libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev \
     && git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PYENV_ROOT="$HOME/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
-
-RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc \
-    && /bin/bash -c "source ~/.bashrc"
+ENV PYENV_INIT="eval \"$(pyenv init -)\""
 
 RUN python -m pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
