@@ -6,19 +6,18 @@ COPY . .
 
 RUN apt-get update && apt-get install -y \
     curl git-core gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev \
-    && curl https://pyenv.run | bash \
+    && git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PYENV_ROOT /root/.pyenv
-ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
-RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+ENV PYENV_ROOT="$HOME/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:$PATH"
 
-RUN /bin/bash -c "source ~/.bashrc"
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc \
+    && /bin/bash -c "source ~/.bashrc"
 
-RUN python -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 ENV AWS_ACCESS_KEY_ID=access_key
 ENV AWS_SECRET_ACCESS_KEY=secret_key
