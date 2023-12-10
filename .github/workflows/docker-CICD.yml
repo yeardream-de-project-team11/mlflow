@@ -22,11 +22,11 @@ jobs:
       with:
         context: .
         dockerfile: Dockerfile
-        tags: server
+        tags: server:test
         push: false
 
     - name: Run Docker container
-      run: docker run -d -p 5000:5000 server
+      run: docker run -d -p 5000:5000 server:test
 
     - name: Test
       run: |
@@ -38,7 +38,7 @@ jobs:
       with:
         context: .
         dockerfile: Dockerfile_serving
-        tags: serve
+        tags: serve:test
         push: false
 
     - name: action-slack
