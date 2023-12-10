@@ -4,6 +4,7 @@ services:
       build:
         context: .
         dockerfile: Dockerfile
+      command: ../run_server.sh
       restart: unless-stopped
       environment:
         - BACKEND_URI=sqlite:///mlflow.db
@@ -15,16 +16,19 @@ services:
       ports:
         - 9005:5000
 
-  serve1:
+  serving1:
       build:
         context: .
-        dockerfile: Dockerfile_serving
+        dockerfile: Dockerfile
+      command: ../run_serving.sh
       restart: unless-stopped
       depends_on:
         - mlflow
       environment:
         - MLFLOW_TRACKING_URI=http://mlflow:5000
-        - MODEL_RUN_ID=77fda43e39a344269a64c429c268d068
+        - MODEL_RUN_ID=ae09e64fe1b848988df1533842f422ac
+      env_file:
+        - .env
       ports:
         - 9006:5000
         

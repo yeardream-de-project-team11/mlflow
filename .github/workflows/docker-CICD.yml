@@ -18,18 +18,15 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build Docker image
-      run: docker build -t server -f Dockerfile .
+      run: docker build -t myapp -f Dockerfile .
 
     - name: Run Docker container
-      run: docker run -d -p 5000:5000 server
+      run: docker run -d -p 5000:5000 myapp /bin/bash -c "../run_server.sh"
 
     - name: Test
       run: |
         sleep 30
         curl http://localhost:5000
-
-    - name: Build Docker serving image
-      run: docker build -t serving -f Dockerfile_serving .
 
     - name: action-slack
       uses: 8398a7/action-slack@v3

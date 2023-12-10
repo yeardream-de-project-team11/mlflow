@@ -25,9 +25,9 @@ ENV AWS_ACCESS_KEY_ID=access_key
 ENV AWS_SECRET_ACCESS_KEY=secret_key
 ENV BACKEND_URI sqlite:///mlflow.db
 ENV ARTIFACT_ROOT s3://bucket_name/mlflow/
+ENV MLFLOW_TRACKING_URI=http://mlflow:5000
+ENV MODEL_RUN_ID=runid
 
 WORKDIR ./myapp
 
 EXPOSE 5000
-
-CMD mlflow server --backend-store-uri $BACKEND_URI --default-artifact-root $ARTIFACT_ROOT --host 0.0.0.0
