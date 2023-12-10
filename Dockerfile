@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev git\
     && curl https://pyenv.run | bash \
     && apt clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && chmod +x server.sh \
+    && chmod +x serving.sh 
 
 ENV HOME /root
 ENV PYENV_ROOT $HOME/.pyenv
