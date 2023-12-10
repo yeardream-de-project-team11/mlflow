@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
     && curl https://pyenv.run | bash \
     && apt clean \
     && rm -rf /var/lib/apt/lists/* \
-    && chmod +x ./server.sh \
-    && chmod +x ./serving.sh 
+    && chmod +x run_server.sh \
+    && chmod +x run_serving.sh 
 
 ENV HOME /root
 ENV PYENV_ROOT $HOME/.pyenv
