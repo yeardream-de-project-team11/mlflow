@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && chmod +x ./script/run_server.sh \
     && chmod +x ./script/run_serving.sh \
-    && chmid +x ./script/run.sh
+    && chmod +x ./script/run.sh
 
 ENV HOME /root
 ENV PYENV_ROOT $HOME/.pyenv
