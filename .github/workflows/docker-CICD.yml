@@ -21,7 +21,7 @@ jobs:
       run: docker build -t myapp -f Dockerfile .
 
     - name: Run Docker container
-      run: docker run -d -p 5000:5000 myapp /bin/bash -c "../run_server.sh"
+      run: docker run -d -p 5000:5000 -e SERVICE_TYPE=server myapp
 
     - name: Test
       run: |

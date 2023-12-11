@@ -1,14 +1,23 @@
 version:  '3'
 services:
+
+  _build:
+    command: ['echo', 'build completed']  
+    build:
+      context: .
+      dockerfile: Dockerfile
+    <<: &build_img
+      image: mlflow
+
   mlflow:
-      build:
-        context: .
-        dockerfile: Dockerfile
-      command: ../run_server.sh
+      <<: *build_img
       restart: unless-stopped
       environment:
+        - SERVICE_TYPE=server
         - BACKEND_URI=sqlite:///mlflow.db
         - ARTIFACT_ROOT=s3://11team-hm/mlflow/
+      depends_on:
+        - _build
       env_file:
         - .env
       volumes:
@@ -17,16 +26,15 @@ services:
         - 9005:5000
 
   serving1:
-      build:
-        context: .
-        dockerfile: Dockerfile
-      command: ../run_serving.sh
+      <<: *build_img
       restart: unless-stopped
       depends_on:
+        - _build
         - mlflow
       environment:
+        - SERVICE_TYPE=serving
         - MLFLOW_TRACKING_URI=http://mlflow:5000
-        - MODEL_RUN_ID=ae09e64fe1b848988df1533842f422ac
+        - MODEL_RUN_ID=b380e59f20044ccfb914e0e90b9516c8
       env_file:
         - .env
       ports:

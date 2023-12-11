@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y \
     && curl https://pyenv.run | bash \
     && apt clean \
     && rm -rf /var/lib/apt/lists/* \
-    && chmod +x run_server.sh \
-    && chmod +x run_serving.sh 
+    && chmod +x ./script/run_server.sh \
+    && chmod +x ./script/run_serving.sh \
+    && chmid +x ./script/run.sh
 
 ENV HOME /root
 ENV PYENV_ROOT $HOME/.pyenv
@@ -29,7 +30,10 @@ ENV BACKEND_URI sqlite:///mlflow.db
 ENV ARTIFACT_ROOT s3://bucket_name/mlflow/
 ENV MLFLOW_TRACKING_URI=http://mlflow:5000
 ENV MODEL_RUN_ID=runid
+ENV SERVICE_TYPE=None
 
 WORKDIR ./myapp
 
 EXPOSE 5000
+
+ENTRYPOINT ["../script/run.sh"]
